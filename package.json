@@ -1,10 +1,10 @@
 {
   "name": "jolly-roger",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "A micro framework on top of React hooks",
   "main": "src/index.js",
   "scripts": {
-    "build": "browserify ./src/index.js -o ./umd/jr.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] --plugins [ @babel/plugin-transform-regenerator @babel/plugin-transform-runtime ] ] --external react --standalone JR && uglifyjs --compress --mangle -- ./umd/jr.js > ./umd/jr.min.js",
+    "build": "browserify ./browser.js -o ./umd/jr.js --external react --standalone JR && uglifyjs --compress --mangle -- ./umd/jr.js > ./umd/jr.min.js",
     "test": "./node_modules/.bin/jest",
     "test-watch": "./node_modules/.bin/jest --watch --verbose false",
     "release": "yarn test && yarn build"
@@ -34,6 +34,7 @@
     "babel-jest": "24.1.0",
     "babelify": "10.0.0",
     "browserify": "16.2.3",
+    "browserify-shim": "3.8.14",
     "jest": "24.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -42,5 +43,20 @@
   },
   "files": [
     "umd/"
-  ]
+  ],
+  "browserify-shim": {
+    "react": "global:React"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [ "@babel/preset-env", "@babel/preset-react" ],
+          "plugins": [ "@babel/plugin-transform-regenerator", "@babel/plugin-transform-runtime" ]
+        }
+      ],
+      "browserify-shim"
+    ]
+  }
 }
