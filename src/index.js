@@ -104,4 +104,4 @@ const roger = {
   inspect
 }
 
-module.exports = roger;
+export default roger;

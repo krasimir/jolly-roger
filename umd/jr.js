@@ -63,6 +63,11 @@ module.exports = _slicedToArray;
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _react = require("react");
@@ -193,7 +198,8 @@ var roger = {
   flush: flush,
   inspect: inspect
 };
-module.exports = roger;
+var _default = roger;
+exports["default"] = _default;
 
 },{"@babel/runtime/helpers/interopRequireDefault":2,"@babel/runtime/helpers/slicedToArray":5,"react":"react"}]},{},[6])(6)
 });
