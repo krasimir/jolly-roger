@@ -19,15 +19,11 @@ const createStore = () => ({
 var store = createStore();
 
 function createStateSetter(slice) {
-  const setStateMethodName = `set${ slice.charAt(0).toUpperCase() + slice.substr(1) }`;
   const setState = (newState) => {
     store.state[slice] = newState;
     store.onUpdate(slice);
   };
 
-  if (!store.context[setStateMethodName]) {
-    store.context[setStateMethodName] = setState;
-  }
   return setState;
 }
 

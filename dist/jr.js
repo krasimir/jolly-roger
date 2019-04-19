@@ -98,16 +98,10 @@ var createStore = function createStore() {
 var store = createStore();
 
 function createStateSetter(slice) {
-  var setStateMethodName = "set".concat(slice.charAt(0).toUpperCase() + slice.substr(1));
-
   var setState = function setState(newState) {
     store.state[slice] = newState;
     store.onUpdate(slice);
   };
-
-  if (!store.context[setStateMethodName]) {
-    store.context[setStateMethodName] = setState;
-  }
 
   return setState;
 }

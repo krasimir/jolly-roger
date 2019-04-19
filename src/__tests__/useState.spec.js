@@ -30,9 +30,11 @@ describe('Given the Jolly Roger library', () => {
         return <p>{ foo }</p>;
       };
 
-      expect(() => {
+      try {
         render(<A />);
-      }).toThrow();
+      } catch (error) {
+        expect(error.toString()).toEqual('Error: useState requires a state slice name that you are going to operate on.');
+      }
     });
     it('should set an initial state only if it is not set already', () => {
       const A = () => (roger.useState('foo', 'a'), null);
@@ -97,23 +99,6 @@ describe('Given the Jolly Roger library', () => {
       expect(container.textContent).toEqual('Nothing');
       expect(roger.inspect().updaters['foo'].length).toEqual(0);
       expect(roger.inspect().updaters['visible'].length).toEqual(1);
-    });
-    it('should define a set<Slice> context method', () => {
-      const selector = jest.fn();
-      const A = function () {
-        const [ foo ] = roger.useState('foo', 'hello');
-
-        return <p>{ foo }</p>;
-      };
-      const { container } = render(<A />);
-
-      roger.select(selector);
-      expect(selector).toBeCalledWith({foo: 'hello'});
-
-      act(() => {
-        roger.inspect().context.setFoo('world');
-      });
-      expect(container.textContent).toEqual('world');
     });
   });
 });
