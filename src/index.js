@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define, max-len */
-import { useState as useStateReact, useEffect as userEffectReact } from './importReact';
+import { useState as useStateReact, useEffect as userEffectReact } from 'react';
 
 const DEV = true;
 

@@ -61,20 +61,11 @@ module.exports = _slicedToArray;
 },{"./arrayWithHoles":1,"./iterableToArrayLimit":3,"./nonIterableRest":4}],6:[function(require,module,exports){
 "use strict";
 
-try {
-  module.exports = require('react');
-} catch (e) {
-  module.exports = window.React;
-}
-
-},{"react":"react"}],7:[function(require,module,exports){
-"use strict";
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
-var _importReact = require("./importReact");
+var _react = require("react");
 
 /* eslint-disable no-use-before-define, max-len */
 var DEV = true;
@@ -115,7 +106,7 @@ function useState(slice, initialState) {
     store.state[slice] = initialState;
   }
 
-  var _useStateReact = (0, _importReact.useState)(store.state[slice]),
+  var _useStateReact = (0, _react.useState)(store.state[slice]),
       _useStateReact2 = (0, _slicedToArray2["default"])(_useStateReact, 2),
       state = _useStateReact2[0],
       setLocalState = _useStateReact2[1];
@@ -129,7 +120,7 @@ function useState(slice, initialState) {
     store.updaters[slice].push(setLocalState);
   }
 
-  (0, _importReact.useEffect)(function () {
+  (0, _react.useEffect)(function () {
     return function () {
       store.updaters[slice] = store.updaters[slice].filter(function (u) {
         return u !== setLocalState;
@@ -204,5 +195,5 @@ var roger = {
 };
 module.exports = roger;
 
-},{"./importReact":6,"@babel/runtime/helpers/interopRequireDefault":2,"@babel/runtime/helpers/slicedToArray":5}]},{},[7])(7)
+},{"@babel/runtime/helpers/interopRequireDefault":2,"@babel/runtime/helpers/slicedToArray":5,"react":"react"}]},{},[6])(6)
 });
