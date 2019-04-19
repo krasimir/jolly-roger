@@ -1,10 +1,10 @@
 {
   "name": "jolly-roger",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A micro framework on top of React hooks",
-  "main": "dist/jr.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "browserify ./src/index.js -o ./dist/jr.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] --plugins [ @babel/plugin-transform-regenerator @babel/plugin-transform-runtime ] ] --external react --standalone JR && uglifyjs --compress --mangle -- ./dist/jr.js > ./dist/jr.min.js",
+    "build": "browserify ./src/index.js -o ./umd/jr.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] --plugins [ @babel/plugin-transform-regenerator @babel/plugin-transform-runtime ] ] --external react --standalone JR && uglifyjs --compress --mangle -- ./umd/jr.js > ./umd/jr.min.js",
     "test": "./node_modules/.bin/jest",
     "test-watch": "./node_modules/.bin/jest --watch --verbose false",
     "release": "yarn test && yarn build"
@@ -35,11 +35,12 @@
     "babelify": "10.0.0",
     "browserify": "16.2.3",
     "jest": "24.1.0",
+    "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-testing-library": "6.0.0",
     "uglify-js": "3.5.5"
   },
-  "dependencies": {
-    "react": "^16.8.6"
-  }
+  "files": [
+    "umd/"
+  ]
 }
