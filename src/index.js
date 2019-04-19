@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define, max-len */
-import { useState as useStateReact, useEffect as userEffectReact } from 'react';
+import { useState as useStateReact, useEffect as userEffectReact } from './importReact';
 
 const DEV = true;
 
@@ -98,7 +98,7 @@ if (DEV) {
   window.__store = store;
 }
 
-export default {
+const roger = {
   useState,
   useReducer,
   context,
@@ -106,4 +106,6 @@ export default {
   select,
   flush,
   inspect
-};
+}
+
+module.exports = roger;
