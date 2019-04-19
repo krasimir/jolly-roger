@@ -1,6 +1,6 @@
 # jolly-roger - A micro-framework on top of React hooks.
 
----
+![Jolly Roger](jollyroger.png)
 
 [Online demo](https://poet.codes/e/gnlV6me2xfQ) :rocket:
 
