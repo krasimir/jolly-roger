@@ -2,9 +2,10 @@
 
 ![Jolly Roger](jollyroger.png)
 
-~4KB micro-framework on top of React hooks.
+~2KB micro-framework on top of React hooks.
 
-:rocket: [Online demo](https://poet.codes/e/gnlV6me2xfQ) :rocket:
+* [Online demo](https://poet.codes/e/gnlV6me2xfQ) :rocket:
+* [Jolly Roger visualized](https://poet.codes/e/mq2PoRVJ4CG/frame/1300px/930px) :mag:
   
 ---
 
@@ -36,8 +37,7 @@ The [hooks API](https://reactjs.org/docs/hooks-reference.html) is a wonderful id
 Let's have a look at the following example:
 
 ```js
-import react, { useEffect } from 'react';
-import roger from 'jolly-roger';
+import react, { useEffect, useState } from 'react';
 
 const App = function () {
   const [ time, setTime ] = useState(new Date());
