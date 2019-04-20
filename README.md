@@ -13,6 +13,8 @@
   - [Sharing state](#sharing-state)
   - [Using a reducer](#using-a-reducer)
   - [Using the context](#using-the-context)
+- [API](#api)
+  - [useState(<slice>, <initial value>)](#usestateslice-initial-value)
 
 ## Installation
 
@@ -31,7 +33,7 @@ The [hooks API](https://reactjs.org/docs/hooks-reference.html) is a wonderful id
 Let's have a look at the following example:
 
 ```js
-import react, { useEffect, useState, Fragment } from 'react';
+import react, { useEffect } from 'react';
 import roger from 'jolly-roger';
 
 const App = function () {
@@ -170,4 +172,27 @@ function SetNewTime() {
 
 Notice that Jolly Roger plays absolutely fine with the native React hooks. Like we did here we set a `inProgress` flag to indicate that there is a request in progress. Check out how it works [here](https://poet.codes/e/gnlV6me2xfQ#Context.js).
 
+## API
+
+### useState(<slice>, <initial value>)
+
+|               | type          | description  |
+| ------------- |:-------------:| -----|
+| slice         | `<string>`    | A name of the slice in the application state |
+| initial value | `<any>`       | Initial value which is set in the state |
+| returns       | `<array>`     | Returns an array where the first item is the state value and the second a function to change it |
+
+Returns:
+
+
+
+Example: 
+
+```
+const [ time, setTime ] = roger.useState('time', new Date());
+
+...
+
+setTime(new Date());
+```
 
