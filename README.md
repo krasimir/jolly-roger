@@ -145,7 +145,9 @@ roger.context({
 });
 ```
 
-And here is the same `<SetNewTime>` component using the new `getTime` helper:
+Every context method accepts two arguments. The first one is reserved for anything that may need to be injected as a dependency and the second one is always the Roger's context itself. In our case `getTime` has one dependency and that's the endpoint URL. We need the `yohoho` action defined in our `useReducer` call. We get the data and dispatch the action.
+
+Here is the same `<SetNewTime>` component using the new `getTime` helper:
 
 ```js
 function SetNewTime() {
@@ -165,5 +167,7 @@ function SetNewTime() {
   );
 }
 ```
+
+Notice that Jolly Roger plays absolutely fine with the native React hooks. Like we did here we set a `inProgress` flag to indicate that there is a request in progress. Check out how it works [here](https://poet.codes/e/gnlV6me2xfQ#Context.js).
 
 
