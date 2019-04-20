@@ -16,6 +16,8 @@
 - [API](#api)
   - [useState(slice, initial value)](#usestateslice-initial-value)
   - [useReducer(slice, actions)](#usereducerslice-actions)
+  - [useContext()](#usecontext)
+  - [context(functions)](#contextfunctions)
 
 ## Installation
 
@@ -171,7 +173,7 @@ function SetNewTime() {
 }
 ```
 
-Notice that Jolly Roger plays absolutely fine with the native React hooks. Like we did here we set a `inProgress` flag to indicate that there is a request in progress. Check out how it works [here](https://poet.codes/e/gnlV6me2xfQ#Context.js).
+Notice that Jolly Roger plays absolutely fine with the native React hooks. Like we did here we set a `inProgress` flag to indicate that there is a request in progress. Check out how it works [here](https://poet.codes/e/gnlV6me2xfQ#useContext.js).
 
 ## API
 
@@ -186,38 +188,98 @@ Notice that Jolly Roger plays absolutely fine with the native React hooks. Like 
 Example: 
 
 ```js
+// inside your component
 const [ counter, setCounter ] = roger.useState('counter', 10);
 
-// later in your component
+// later in the same component
 setState(20);
 ...
 
 return <p>{ counter }</p>; // after re-render you'll get: <p>20</p>
 ```
 
+[Online demo](https://poet.codes/e/gnlV6me2xfQ#SharedState.js)
+
 ### useReducer(slice, actions)
 
 |               | type          | description  |
 | ------------- |:-------------:| -----|
 | slice         | `<string>`    | A name of the slice in the application state |
-| actions       | `<objects>`   | An object which keys are the name of the actions and values are the actual reducer functions. Every reducer receives the current state value and should return the new one. As second argument the reducer accepts the action's payload (if any)  |
+| actions       | `<object>`   | An object which keys are the name of the actions and values are the actual reducer functions. Every reducer receives the current state value and should return the new one. As second argument the reducer accepts the action's payload (if any)  |
 | returns       | nothing       |
 
 Example:
 
 ```js
+// this is out of your React components
 roger.useReducer('counter', {
   increment(number, payload) {
     return number + payload.amount;
   }
 });
 
-// later in your component
+// in your React component
 const [ counter ] = roger.useState('counter', 10);
 const { increment } = roger.useContext();
 
+// later in the same component
 increment({ amount: 4 });
 ...
 
 return <p>{ counter }</p>; // after re-render you'll get: <p>14</p>
 ```
+
+[Online demo](https://poet.codes/e/gnlV6me2xfQ#Reducer.js)
+
+### useContext()
+
+|               | type          | description  |
+| ------------- |:-------------:| -----|
+| returns       | <object>      | A Jolly Roger context where you'll find all the reducer actions + all the functions defined via the [`context`](#contextfunctions) method.
+
+Example:
+
+```js
+// outside of your React components
+roger.context({
+  greeting(name) {
+    return `Hello ${ name }`;
+  }
+});
+
+// in your React component
+const { greeting } = roger.useContext();
+
+return <p>{ greeting('John') }</p>; // <p>Hello John</p>
+```
+
+[Online demo](https://poet.codes/e/gnlV6me2xfQ#useContext.js)
+
+### context(functions)
+
+|               | type          | description  |
+| ------------- |:-------------:| -----|
+| functions     | `<object>`   | An object which keys are the function names and values are the actual function definitions. Every function receives a parameter as a first argument. As second argument it accepts the Roger's context. In that context object you'll find the other context functions and also the reducer actions defined while using `useReducer`. |
+| returns       | nothing       |
+
+```js
+roger.useReducer('time', {
+  setTime(currentTime, { newTime }) {
+    return newTime;
+  }
+})
+roger.context({
+ 	logTime(time) {
+    console.log(time);
+  },
+  async getTime(url, { logTime, setTime }) {
+   	const result = await fetch(url);
+    const data = await result.json();
+    
+    logTime(data.now); // another context method
+    setTime(data.now); // reducer action
+  }
+});
+```
+
+[Online demo](https://poet.codes/e/gnlV6me2xfQ#context.js)
