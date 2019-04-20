@@ -1,11 +1,15 @@
-# A micro-framework on top of React hooks. <!-- omit in toc -->
+# Jolly Roger <!-- omit in toc -->
 
 ![Jolly Roger](jollyroger.png)
 
+~4KB micro-framework on top of React hooks.
+
 :rocket: [Online demo](https://poet.codes/e/gnlV6me2xfQ) :rocket:
   
+---
+
 - [Installation](#installation)
-- [Concept](#concept)
+- [Concepts](#concepts)
   - [Sharing state](#sharing-state)
   - [Using a reducer](#using-a-reducer)
   - [Using the context](#using-the-context)
@@ -18,7 +22,7 @@ or
 
 [https://unpkg.com/jolly-roger@latest/umd/jr.js](https://unpkg.com/jolly-roger@latest/umd/jr.js)
 
-## Concept
+## Concepts
 
 The [hooks API](https://reactjs.org/docs/hooks-reference.html) is a wonderful idea. There are some slick patterns involved which pushes the React development to a more functional approach. I was really interesting to try that new API and decided to use it for my [latest project](https://igit.dev). It looked like I can't build my app only with hooks. I needed something else. And that's mainly because each hook works on a local component level. I can't really transfer state or exchange reducers between the components. That's why I created this library. It has similar helpers but works on a global app level.
 
@@ -117,7 +121,7 @@ function SetNewTime() {
   return (
     <button onClick={ () => yohoho({ now: new Date() }) }>
       click me
-   	</button>
+    </button>
   );
 }
 ```
@@ -128,6 +132,38 @@ What's this `useContext` read in the next section.
 
 ### Using the context
 
-Because Roger works in the global space it can store some stuff for you. By default the actions that we define in our `useReducer` calls are automatically stored there. As we saw in the previous section the `yohoho` method is used by getting it from the Roger's context. We can do that with the help of `useContext` method.
+Because Roger works as a global singleton it can store some stuff for you. By default the actions that we define in our `useReducer` calls are automatically stored there. As we saw in the previous section the `yohoho` method is used by getting it from the Roger's context. We can do that with the help of `useContext` method. Let's continue with our little time app and get the time from a external API via a `fetch` call. In this case we may create a function in the Roger's context that does the request for us and fires the `yohoho` action.
+
+```js
+roger.context({
+  async getTime(url, { yohoho }) {
+   	const result = await fetch(url);
+    const data = await result.json();
+    
+    yohoho({ now: new Date(data.now)})
+  }
+});
+```
+
+And here is the same `<SetNewTime>` component using the new `getTime` helper:
+
+```js
+function SetNewTime() {
+  const [ inProgress, setProgress ] = useState(false);
+  const { getTime } = roger.useContext();
+  
+  const onClick = async () => {
+    setProgress(true);
+    await getTime('https://igit.dev/now');
+    setProgress(false);
+  }
+  
+  return (
+    <button onClick={ onClick } disabled={ inProgress }>
+      { inProgress ? 'getting the time' : 'click me' }
+   	</button>
+  );
+}
+```
 
 
