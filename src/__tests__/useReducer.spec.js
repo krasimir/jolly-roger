@@ -11,18 +11,12 @@ describe('Given the Jolly Roger library', () => {
   describe('when we use the Roger\'s useReducer', () => {
     it(`should
       - create a dedicated slice in the state
-      - define a context method
-      - allow context method with the same name`, () => {
+      - define a context method`, () => {
       const spy = jest.fn();
 
       roger.useReducer('foo', {
         add(state, num) {
           return state + num ;
-        }
-      });
-      roger.context({
-        add(...args) {
-          spy(...args);
         }
       });
 
@@ -45,8 +39,34 @@ describe('Given the Jolly Roger library', () => {
       fireEvent.click(getByTestId('button'));
 
       expect(container.textContent).toEqual('20');
-      expect(spy).toBeCalledWith(10, expect.any(Object));
-      expect(spy).toBeCalledTimes(2);
+    });
+    it('should throw an error if we try to register a context method that clash with a reducer action', () => {
+      roger.useReducer('foo', {
+        boo(state, num) {
+          return state + num;
+        }
+      });
+      expect(() => {
+        roger.context({
+          boo(something) {
+            return something;
+          }
+        });
+      }).toThrowError('JollyRoger: There is already a context method with name \"boo\". Check out the usage of \"context\" and \"useReducer\" in your application.');
+    });
+    it('should throw an error if we try to create an action with the same name in another reducer', () => {
+      roger.useReducer('foo1', {
+        boo(state, num) {
+          return state + num;
+        }
+      });
+      expect(() => {
+        roger.useReducer('foo2', {
+          boo(something) {
+            return something;
+          }
+        });
+      }).toThrowError('JollyRoger: There is already a context method with name \"boo\". Check out the usage of \"context\" and \"useReducer\" in your application.');
     });
   });
   describe('when using context method multiple times', () => {

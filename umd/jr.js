@@ -81,6 +81,10 @@ var _react = (typeof window !== "undefined" ? window['React'] : typeof global !=
 /* eslint-disable no-use-before-define, max-len */
 var DEV = true;
 
+var SAME_CONTEXT_METHOD_ERROR = function SAME_CONTEXT_METHOD_ERROR(name) {
+  return "JollyRoger: There is already a context method with name \"".concat(name, "\". Check out the usage of \"context\" and \"useReducer\" in your application.");
+};
+
 var createStore = function createStore() {
   return {
     state: {},
@@ -110,7 +114,7 @@ function createStateSetter(slice) {
 
 function useState(slice, initialState) {
   if (!slice) {
-    throw new Error('useState requires a state slice name that you are going to operate on.');
+    throw new Error('JollyRoger: useState requires a state slice name that you are going to operate on.');
   }
 
   if (typeof initialState !== 'undefined' && typeof store.state[slice] === 'undefined') {
@@ -144,8 +148,11 @@ function useState(slice, initialState) {
 ;
 
 function useReducer(slice, actions) {
-  createStateSetter(slice);
   Object.keys(actions).forEach(function (actionName) {
+    if (store.reducers[actionName]) {
+      throw new Error(SAME_CONTEXT_METHOD_ERROR(actionName));
+    }
+
     store.reducers[actionName] = function (payload) {
       store.state[slice] = actions[actionName](store.state[slice], payload, store.context);
       store.onUpdate(slice);
@@ -163,11 +170,11 @@ function useReducer(slice, actions) {
 
 function context(effects) {
   Object.keys(effects).forEach(function (effectName) {
-    store.context[effectName] = function (action) {
-      if (store.reducers[effectName]) {
-        store.reducers[effectName](action);
-      }
+    if (store.reducers[effectName]) {
+      throw new Error(SAME_CONTEXT_METHOD_ERROR(effectName));
+    }
 
+    store.context[effectName] = function (action) {
       return effects[effectName](action, store.context);
     };
   });

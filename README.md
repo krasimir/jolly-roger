@@ -7,6 +7,7 @@
 - [Installation](#installation)
 - [Concept](#concept)
   - [Sharing state](#sharing-state)
+  - [Using a reducer](#using-a-reducer)
 
 ## Installation
 
@@ -88,6 +89,10 @@ const App = function () {
 }
 ```
 
-_([Here is a online demo.](https://poet.codes/e/gnlV6me2xfQ#SharedState.js))_
+_([Here is a online demo](https://poet.codes/e/gnlV6me2xfQ#SharedState.js))_
+
+The API is almost the same except we have to give the state a name. In this case that is the first argument of the Roger's `useState` equal to `time`. We have to give it a name because we need an identifier to access it from within the other components.
+
+### Using a reducer
 
 

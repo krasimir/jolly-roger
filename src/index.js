@@ -2,6 +2,8 @@
 import { useState as useStateReact, useEffect as userEffectReact } from 'react';
 
 const DEV = true;
+const SAME_CONTEXT_METHOD_ERROR = name =>
+  `JollyRoger: There is already a context method with name "${ name }". Check out the usage of "context" and "useReducer" in your application.`
 
 const createStore = () => ({
   state: {},
@@ -29,7 +31,7 @@ function createStateSetter(slice) {
 
 function useState(slice, initialState) {
   if (!slice) {
-    throw new Error('useState requires a state slice name that you are going to operate on.');
+    throw new Error('JollyRoger: useState requires a state slice name that you are going to operate on.');
   }
   if (typeof initialState !== 'undefined' && typeof store.state[slice] === 'undefined') {
     store.state[slice] = initialState;
@@ -51,8 +53,10 @@ function useState(slice, initialState) {
 };
 
 function useReducer(slice, actions) {
-  createStateSetter(slice);
   Object.keys(actions).forEach(actionName => {
+    if (store.reducers[actionName]) {
+      throw new Error(SAME_CONTEXT_METHOD_ERROR(actionName));
+    }
     store.reducers[actionName] = (payload) => {
       store.state[slice] = actions[actionName](store.state[slice], payload, store.context);
       store.onUpdate(slice);
@@ -65,10 +69,10 @@ function useReducer(slice, actions) {
 
 function context(effects) {
   Object.keys(effects).forEach(effectName => {
+    if (store.reducers[effectName]) {
+      throw new Error(SAME_CONTEXT_METHOD_ERROR(effectName));
+    }
     store.context[effectName] = (action) => {
-      if (store.reducers[effectName]) {
-        store.reducers[effectName](action);
-      }
       return effects[effectName](action, store.context);
     };
   });

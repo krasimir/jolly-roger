@@ -30,11 +30,8 @@ describe('Given the Jolly Roger library', () => {
         return <p>{ foo }</p>;
       };
 
-      try {
-        render(<A />);
-      } catch (error) {
-        expect(error.toString()).toEqual('Error: useState requires a state slice name that you are going to operate on.');
-      }
+      expect(() => render(<A />))
+        .toThrowError('JollyRoger: useState requires a state slice name that you are going to operate on.');
     });
     it('should set an initial state only if it is not set already', () => {
       const A = () => (roger.useState('foo', 'a'), null);
