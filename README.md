@@ -88,6 +88,6 @@ const App = function () {
 }
 ```
 
-https://poet.codes/e/gnlV6me2xfQ#SharedState.js
+_([Here is a online demo.](https://poet.codes/e/gnlV6me2xfQ#SharedState.js))_
 
 
