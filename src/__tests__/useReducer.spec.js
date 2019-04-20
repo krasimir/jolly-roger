@@ -68,6 +68,20 @@ describe('Given the Jolly Roger library', () => {
         });
       }).toThrowError('JollyRoger: There is already a context method with name \"boo\". Check out the usage of \"context\" and \"useReducer\" in your application.');
     });
+    it('should throw an error if we try to create an action with the same name as in the context', () => {
+      roger.context({
+        boo(something) {
+          return something;
+        }
+      });
+      expect(() => {
+        roger.useReducer('foo1', {
+          boo(state, num) {
+            return state + num;
+          }
+        });
+      }).toThrowError('JollyRoger: There is already a context method with name \"boo\". Check out the usage of \"context\" and \"useReducer\" in your application.');
+    });
   });
   describe('when using context method multiple times', () => {
     it('should update the state and re-render the React components', () => {

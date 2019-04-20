@@ -149,7 +149,7 @@ function useState(slice, initialState) {
 
 function useReducer(slice, actions) {
   Object.keys(actions).forEach(function (actionName) {
-    if (store.reducers[actionName]) {
+    if (store.reducers[actionName] || store.context[actionName]) {
       throw new Error(SAME_CONTEXT_METHOD_ERROR(actionName));
     }
 
