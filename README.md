@@ -14,7 +14,8 @@
   - [Using a reducer](#using-a-reducer)
   - [Using the context](#using-the-context)
 - [API](#api)
-  - [useState(&lt;slice>, &lt;initial value>)](#usestateltslice-ltinitial-value)
+  - [useState(slice, initial value)](#usestateslice-initial-value)
+  - [useReducer(slice, actions)](#usereducerslice-actions)
 
 ## Installation
 
@@ -174,7 +175,7 @@ Notice that Jolly Roger plays absolutely fine with the native React hooks. Like 
 
 ## API
 
-### useState(&lt;slice>, &lt;initial value>)
+### useState(slice, initial value)
 
 |               | type          | description  |
 | ------------- |:-------------:| -----|
@@ -182,17 +183,41 @@ Notice that Jolly Roger plays absolutely fine with the native React hooks. Like 
 | initial value | `<any>`       | Initial value which is set in the state |
 | returns       | `<array>`     | Returns an array where the first item is the state value and the second a function to change it |
 
-Returns:
-
-
-
 Example: 
 
-```
-const [ time, setTime ] = roger.useState('time', new Date());
+```js
+const [ counter, setCounter ] = roger.useState('counter', 10);
 
+// later in your component
+setState(20);
 ...
 
-setTime(new Date());
+return <p>{ counter }</p>; // after re-render you'll get: <p>20</p>
 ```
 
+### useReducer(slice, actions)
+
+|               | type          | description  |
+| ------------- |:-------------:| -----|
+| slice         | `<string>`    | A name of the slice in the application state |
+| actions       | `<objects>`   | An object which keys are the name of the actions and values are the actual reducer functions. Every reducer receives the current state value and should return the new one. As second argument the reducer accepts the action's payload (if any)  |
+| returns       | nothing       |
+
+Example:
+
+```js
+roger.useReducer('counter', {
+  increment(number, payload) {
+    return number + payload.amount;
+  }
+});
+
+// later in your component
+const [ counter ] = roger.useState('counter', 10);
+const { increment } = roger.useContext();
+
+increment({ amount: 4 });
+...
+
+return <p>{ counter }</p>; // after re-render you'll get: <p>14</p>
+```
