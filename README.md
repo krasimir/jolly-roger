@@ -14,7 +14,7 @@
   - [Using a reducer](#using-a-reducer)
   - [Using the context](#using-the-context)
 - [API](#api)
-  - [useState(<slice>, <initial value>)](#usestateslice-initial-value)
+  - [useState(&lt;slice>, &lt;initial value>)](#usestateltslice-ltinitial-value)
 
 ## Installation
 
@@ -174,7 +174,7 @@ Notice that Jolly Roger plays absolutely fine with the native React hooks. Like 
 
 ## API
 
-### useState(<slice>, <initial value>)
+### useState(&lt;slice>, &lt;initial value>)
 
 |               | type          | description  |
 | ------------- |:-------------:| -----|
