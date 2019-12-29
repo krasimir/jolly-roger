@@ -4,8 +4,8 @@
 
 ~2KB micro-framework on top of React hooks.
 
-* [Online demo](https://poet.codes/e/gnlV6me2xfQ) :rocket:
-* [Jolly Roger visualized](https://poet.codes/e/mq2PoRVJ4CG/frame/1300px/930px) :mag:
+* [Online demo](https://poet.krasimir.now.sh/e/gnlV6me2xfQ) :rocket:
+* [Jolly Roger visualized](https://poet.krasimir.now.sh/e/mq2PoRVJ4CG/frame/1300px/930px) :mag:
   
 ---
 
@@ -99,7 +99,7 @@ const App = function () {
 }
 ```
 
-Here is a [online demo](https://poet.codes/e/gnlV6me2xfQ#SharedState.js).
+Here is a [online demo](https://poet.krasimir.now.sh/e/gnlV6me2xfQ#SharedState.js).
 
 The API is almost the same except we have to give the state a name. In this case that is the first argument of the Roger's `useState` equal to `time`. We have to give it a name because we need an identifier to access it from within the other components.
 
@@ -131,7 +131,7 @@ function SetNewTime() {
 }
 ```
 
-The rest is the same. Here is a [online demo](https://poet.codes/e/gnlV6me2xfQ#Reducer.js) to play with.
+The rest is the same. Here is a [online demo](https://poet.krasimir.now.sh/e/gnlV6me2xfQ#Reducer.js) to play with.
 
 What's this `useContext` read in the next section.
 
@@ -173,7 +173,7 @@ function SetNewTime() {
 }
 ```
 
-Notice that Jolly Roger plays absolutely fine with the native React hooks. Like we did here we set a `inProgress` flag to indicate that there is a request in progress. Check out how it works [here](https://poet.codes/e/gnlV6me2xfQ#useContext.js).
+Notice that Jolly Roger plays absolutely fine with the native React hooks. Like we did here we set a `inProgress` flag to indicate that there is a request in progress. Check out how it works [here](https://poet.krasimir.now.sh/e/gnlV6me2xfQ#useContext.js).
 
 ## API
 
@@ -198,7 +198,7 @@ setState(20);
 return <p>{ counter }</p>; // after re-render you'll get: <p>20</p>
 ```
 
-[Online demo](https://poet.codes/e/gnlV6me2xfQ#SharedState.js)
+[Online demo](https://poet.krasimir.now.sh/e/gnlV6me2xfQ#SharedState.js)
 
 ### useReducer(slice, actions)
 
@@ -229,7 +229,7 @@ increment({ amount: 4 });
 return <p>{ counter }</p>; // after re-render you'll get: <p>14</p>
 ```
 
-[Online demo](https://poet.codes/e/gnlV6me2xfQ#Reducer.js)
+[Online demo](https://poet.krasimir.now.sh/e/gnlV6me2xfQ#Reducer.js)
 
 ### useContext()
 
@@ -253,7 +253,7 @@ const { greeting } = roger.useContext();
 return <p>{ greeting('John') }</p>; // <p>Hello John</p>
 ```
 
-[Online demo](https://poet.codes/e/gnlV6me2xfQ#useContext.js)
+[Online demo](https://poet.krasimir.now.sh/e/gnlV6me2xfQ#useContext.js)
 
 ### context(functions)
 
@@ -282,4 +282,4 @@ roger.context({
 });
 ```
 
-[Online demo](https://poet.codes/e/gnlV6me2xfQ#context.js)
+[Online demo](https://poet.krasimir.now.sh/e/gnlV6me2xfQ#context.js)

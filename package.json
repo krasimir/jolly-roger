@@ -1,6 +1,6 @@
 {
   "name": "jolly-roger",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A micro framework on top of React hooks",
   "main": "src/index.js",
   "scripts": {
@@ -52,8 +52,14 @@
       [
         "babelify",
         {
-          "presets": [ "@babel/preset-env", "@babel/preset-react" ],
-          "plugins": [ "@babel/plugin-transform-regenerator", "@babel/plugin-transform-runtime" ]
+          "presets": [
+            "@babel/preset-env",
+            "@babel/preset-react"
+          ],
+          "plugins": [
+            "@babel/plugin-transform-regenerator",
+            "@babel/plugin-transform-runtime"
+          ]
         }
       ],
       "browserify-shim"
